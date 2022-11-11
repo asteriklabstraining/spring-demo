@@ -26,7 +26,7 @@ public class StudentController {
     @PostMapping(value = "/createstudent")
     public String createStudent(@RequestBody Student student){
         studentService.createStudent(student);
-        return "Student Created";
+        return "Student Created update2";
     }
 
     @DeleteMapping(value = "/deletestudent/{id}")
