@@ -37,4 +37,11 @@ public class StudentController {
         return "student with id: " + id + " has been deleted";
     }
 
+    @PatchMapping(value = "/updatestudent/{id}")
+    public String updateStudent(@PathVariable int id){
+        return "student updated, id: "+id;
+    }
+
+
+
 }
