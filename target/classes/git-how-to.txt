@@ -1,7 +1,0 @@
-git clone gitUrlForRepository
-
-Add file to stage: git add <fileName> or if you want to add all changes to stage, you can simply do: git add .
-To Commit: git commit -m “commit message”
-Push commit to remote: git push
-
-Check Status: git status

@@ -2,11 +2,12 @@ package com.example.dto;
 
 import lombok.Data;
 
-//Will add xvalidation later
+
 @Data
-public class TeacherDTO {
+public class TeacherRequestDTO {
     private String firstName;
     private String lastName;
     private String phoneNum;
     private String departmentId;
+    private String socialSecurity;
 }

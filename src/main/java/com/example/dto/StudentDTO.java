@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class StudentDTO {
 
-    @NotNull(message = "Name can not be empty")
     private String name;
     private String phoneNumber;
 

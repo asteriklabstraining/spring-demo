@@ -1,31 +1,33 @@
 package com.example.service;
-import com.example.dto.TeacherDTO;
+import com.example.dto.TeacherRequestDTO;
+import com.example.dto.TeacherResponseDTO;
 import com.example.model.Teacher;
 import com.example.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("teacherService")
 public class TeacherServiceImpl implements TeacherService {
 
+    @Value("${asterik.labs.department}")
+    private String department;
+
     @Autowired
     TeacherRepository teacherRepository;
-    @Override
-    public List<Teacher> getTeachers() {
-        return (List<Teacher>) teacherRepository.findAll();
-    }
 
     @Override
-    public boolean createTeacher(TeacherDTO teacher) {
+    public boolean createTeacher(TeacherRequestDTO teacher) {
         boolean isValid = true;
         if(isValid(teacher)){
             Teacher teacherEntity = new Teacher();
             teacherEntity.setFirstName(teacher.getFirstName());
             teacherEntity.setLastName(teacher.getLastName());
             teacherEntity.setPhoneNum(teacher.getPhoneNum());
-            teacherEntity.setDepartmentId(teacher.getDepartmentId());
+            teacherEntity.setDepartmentId(department);
             teacherRepository.save(teacherEntity);
 
         }else{
@@ -35,8 +37,27 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher getTeacherById(long id) {
-        return teacherRepository.findById(id).get();
+    public List<TeacherResponseDTO> getTeachers() {
+        List<TeacherResponseDTO> teacherResponseDTO = new ArrayList<>();
+      for(Teacher teacher: (List<Teacher>) teacherRepository.findAll()){
+          TeacherResponseDTO teacherResponsedto = new TeacherResponseDTO();
+            teacherResponsedto.setFirstName(teacher.getFirstName());
+            teacherResponsedto.setLastName(teacher.getLastName());
+            teacherResponseDTO.add(teacherResponsedto);
+      }
+      return teacherResponseDTO;
+    }
+
+
+
+    @Override
+    public TeacherRequestDTO getTeacherById(long id) {
+        Teacher teacher = teacherRepository.findById(id).get();
+       TeacherRequestDTO teacherRequestDTO = new TeacherRequestDTO();
+       teacherRequestDTO.setFirstName(teacher.getFirstName());
+       teacherRequestDTO.setLastName(teacher.getLastName());
+
+       return teacherRequestDTO;
     }
 
     @Override
@@ -45,12 +66,19 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public String getTeacherByName() {
-        //Need to implement later
-        return "Teacher Found";
+    public List<TeacherRequestDTO> getTeacherByName(String teacherName) {
+        List<Teacher> teacherEntities= teacherRepository.findTeacherByFirstName(teacherName);
+        List<TeacherRequestDTO> teacherRequestDTOS = new ArrayList<>();
+        for(Teacher teacher: teacherEntities){
+            TeacherRequestDTO teacherRequestDTO = new TeacherRequestDTO();
+            teacherRequestDTO.setFirstName(teacher.getFirstName());
+            teacherRequestDTO.setLastName(teacher.getLastName());
+            teacherRequestDTOS.add(teacherRequestDTO);
+        }
+        return teacherRequestDTOS;
     }
 
-    private boolean isValid(TeacherDTO teacher){
+    private boolean isValid(TeacherRequestDTO teacher){
         boolean valid = true;
         try{
             long num = Integer.parseInt(teacher.getPhoneNum());
@@ -59,4 +87,6 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return true;
     }
+
+
 }
