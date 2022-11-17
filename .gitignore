@@ -87,7 +87,7 @@ showlogs.sh
 mvnw
 mvnw.cmd
 
-#looper 
+#looper
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
