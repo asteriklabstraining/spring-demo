@@ -1,7 +1,6 @@
 package com.example.model;
 
 import lombok.Data;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -24,5 +23,9 @@ public class Teacher {
 
     @Column(name = "department_id")
     private String departmentId;
+
+    @Column(name = "social_security")
+    private String socialSecurity;
+
 
 }

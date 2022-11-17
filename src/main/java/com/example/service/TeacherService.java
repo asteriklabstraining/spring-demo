@@ -1,18 +1,20 @@
 package com.example.service;
-import com.example.dto.TeacherDTO;
-import com.example.model.Teacher;
+
+import com.example.dto.TeacherRequestDTO;
+import com.example.dto.TeacherResponseDTO;
+
 import java.util.List;
 
 public interface TeacherService {
 
-    public List<Teacher> getTeachers();
+    public List<TeacherResponseDTO> getTeachers();
 
-    public boolean createTeacher(TeacherDTO teacher);
+    public boolean createTeacher(TeacherRequestDTO teacher);
 
-    public Teacher getTeacherById(long id);
+    public TeacherRequestDTO getTeacherById(long id);
 
     public void deleteTeacherById(long id);
 
-    public String getTeacherByName();
+    public List<TeacherRequestDTO> getTeacherByName(String teacherName);
 
 }
