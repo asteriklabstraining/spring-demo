@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.TeacherRequestDTO;
 import com.example.dto.TeacherResponseDTO;
 import com.example.service.TeacherService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @Validated
-
+@Slf4j
 public class TeacherController {
 
     @Autowired
@@ -43,6 +44,7 @@ public class TeacherController {
 
     @PostMapping(value = "/createteacher")
     public ResponseEntity<String> createTeacher(@RequestBody TeacherRequestDTO teacher){
+        log.info("create teacher controller method called");
         boolean result= teacherService.createTeacher(teacher);
         String msg;
         HttpStatus httpStatus;
@@ -53,7 +55,7 @@ public class TeacherController {
             msg = "Teacher couldn't be created";
             httpStatus = HttpStatus.BAD_REQUEST;
         }
-
+        log.info("create teacher controller method finished, returning response back to UI");
         return new ResponseEntity<>(msg, httpStatus);
     }
 

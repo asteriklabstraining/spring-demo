@@ -3,6 +3,7 @@ import com.example.dto.TeacherRequestDTO;
 import com.example.dto.TeacherResponseDTO;
 import com.example.model.Teacher;
 import com.example.repository.TeacherRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("teacherService")
+@Slf4j
 public class TeacherServiceImpl implements TeacherService {
 
     @Value("${asterik.labs.department}")
@@ -21,6 +23,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean createTeacher(TeacherRequestDTO teacher) {
+        log.info("create teacher called");
         boolean isValid = true;
         if(isValid(teacher)){
             Teacher teacherEntity = new Teacher();
@@ -33,11 +36,13 @@ public class TeacherServiceImpl implements TeacherService {
         }else{
             isValid = false;
         }
+        log.info("craete teacher finished");
         return isValid;
     }
 
     @Override
     public List<TeacherResponseDTO> getTeachers() {
+        log.error("I am error log");
         List<TeacherResponseDTO> teacherResponseDTO = new ArrayList<>();
       for(Teacher teacher: (List<Teacher>) teacherRepository.findAll()){
           TeacherResponseDTO teacherResponsedto = new TeacherResponseDTO();
@@ -84,8 +89,10 @@ public class TeacherServiceImpl implements TeacherService {
             long num = Integer.parseInt(teacher.getPhoneNum());
         }catch (Exception e){
             valid = false;
+            log.error("phoneNumber is not a valid number, {}",teacher.getPhoneNum());
+            log.error(e.getMessage());
         }
-        return true;
+        return valid;
     }
 
 

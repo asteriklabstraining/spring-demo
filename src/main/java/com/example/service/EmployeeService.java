@@ -18,4 +18,7 @@ public interface EmployeeService {
     public String getStudentByName();
 
 
+    public int getCalculationResult(int id);
+
+
 }
