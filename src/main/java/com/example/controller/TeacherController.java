@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @Validated
 @Slf4j
+@RequestMapping("/api/v1")
 public class TeacherController {
 
     @Autowired
@@ -35,6 +36,12 @@ public class TeacherController {
     @GetMapping(value = "/findteacher/{name}")
     public List<TeacherRequestDTO> findTeacherByName(@PathVariable String name){
         return teacherService.getTeacherByName(name);
+    }
+
+    @GetMapping(value = "teacher/find")
+    public TeacherResponseDTO findTeacherById(@RequestParam(name = "id") Long id){
+        log.info("Find teacher by id with request param, {} received", id);
+        return teacherService.findTeacherById(id);
     }
 
     @DeleteMapping(value = "/deleteteacher/{id}")

@@ -10,4 +10,5 @@ public class TeacherRequestDTO {
     private String phoneNum;
     private String departmentId;
     private String socialSecurity;
+    private int age;
 }

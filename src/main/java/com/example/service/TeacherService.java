@@ -17,4 +17,6 @@ public interface TeacherService {
 
     public List<TeacherRequestDTO> getTeacherByName(String teacherName);
 
+    public TeacherResponseDTO findTeacherById(Long id);
+
 }

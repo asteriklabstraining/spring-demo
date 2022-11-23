@@ -27,5 +27,9 @@ public class Teacher {
     @Column(name = "social_security")
     private String socialSecurity;
 
+    @Column(name = "age")
+    private Integer age;
+
+
 
 }

@@ -57,6 +57,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherRequestDTO getTeacherById(long id) {
+        log.info("Get teacher called with id{}", id);
         Teacher teacher = teacherRepository.findById(id).get();
        TeacherRequestDTO teacherRequestDTO = new TeacherRequestDTO();
        teacherRequestDTO.setFirstName(teacher.getFirstName());
@@ -81,6 +82,14 @@ public class TeacherServiceImpl implements TeacherService {
             teacherRequestDTOS.add(teacherRequestDTO);
         }
         return teacherRequestDTOS;
+    }
+
+    @Override
+    public TeacherResponseDTO findTeacherById(Long id) {
+       Teacher teacher = teacherRepository.findById(id).get();
+       TeacherResponseDTO teacherResponseDTO = new TeacherResponseDTO();
+       teacherResponseDTO.setFirstName(teacher.getFirstName());
+       return teacherResponseDTO;
     }
 
     private boolean isValid(TeacherRequestDTO teacher){
